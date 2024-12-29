@@ -11,7 +11,7 @@ import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate } from 'workbox-strategies';
+import { NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies';
 
 clientsClaim();
 
@@ -60,6 +60,36 @@ registerRoute(
     ],
   })
 );
+
+registerRoute(({url})=> url.origin === 'https://fonts.googleapis.com' || url.origin === 'https://fonts.gstatic.com', new NetworkFirst({
+  cacheName: 'fonts',
+  plugins: [
+    new ExpirationPlugin({
+      maxAgeSeconds: 60 * 60 * 24 * 365,
+      maxEntries: 30
+    })
+  ]
+}))
+
+self.addEventListener('install', function(event) {
+  console.log('Service Worker: Install event triggered.');
+
+  const asyncInstall = new Promise(function(resolve) {
+    console.log('Promise started for async install.');
+
+    setTimeout(() => {
+      console.log('Async install resolved after 2 seconds.');
+      resolve();
+    }, 2000);
+  });
+
+  event.waitUntil(asyncInstall);
+});
+
+
+self.addEventListener('activated', function(event) {
+  console.log('sw activated');
+})
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
