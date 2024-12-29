@@ -61,15 +61,17 @@ registerRoute(
   })
 );
 
-registerRoute(({url})=> url.origin === 'https://fonts.googleapis.com' || url.origin === 'https://fonts.gstatic.com', new NetworkFirst({
-  cacheName: 'fonts',
-  plugins: [
-    new ExpirationPlugin({
-      maxAgeSeconds: 60 * 60 * 24 * 365,
-      maxEntries: 30
-    })
-  ]
-}))
+registerRoute(({url})=> 
+  url.origin === 'https://fonts.googleapis.com' || url.origin === 'https://fonts.gstatic.com', new NetworkFirst({
+    cacheName: 'fonts',
+      plugins: [
+        new ExpirationPlugin({
+          maxAgeSeconds: 60 * 60 * 24 * 365,
+          maxEntries: 30
+        })
+      ]
+  })
+)
 
 self.addEventListener('install', function(event) {
   console.log('Service Worker: Install event triggered.');
@@ -80,7 +82,7 @@ self.addEventListener('install', function(event) {
     setTimeout(() => {
       console.log('Async install resolved after 2 seconds.');
       resolve();
-    }, 2000);
+    });
   });
 
   event.waitUntil(asyncInstall);
