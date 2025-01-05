@@ -73,6 +73,16 @@ registerRoute(({url})=>
   })
 )
 
+registerRoute(({url})=>url.origin.includes("bwacharity"), new NetworkFirst({
+  cacheName: 'apiData',
+  plugins: [
+    new ExpirationPlugin({
+      maxAgeSeconds: 360,
+      maxEntries: 10
+    })
+  ]
+}))
+
 self.addEventListener('install', function(event) {
   console.log('Service Worker: Install event triggered.');
 
