@@ -1,12 +1,12 @@
 import React from 'react';
 import ServiceApi from './components/service/Api-Service';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Browser from './components/Browser';
-import Body from './components/Body';
-import Clients from './components/Clients';
-import SideMenu from './components/Side-Menu';
-import Footer from './components/Footer';
+import Header from './components/header';
+import Hero from './components/hero';
+import Browser from './components/browser';
+import Body from './components/body';
+import Clients from './components/clients';
+import SideMenu from './components/side-menu';
+import Footer from './components/footer';
 
 function App() {
   const [informationDetail, setInformationDetail] = React.useState([]);
