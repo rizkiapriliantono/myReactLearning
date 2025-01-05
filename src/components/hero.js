@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PopupInformation from './PopupInformation'
+import PopupInformation from './popupInformation'
 function Hero(){
     const [popupVisible, setPopupVisible] = useState(false);
 
