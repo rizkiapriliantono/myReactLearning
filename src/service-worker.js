@@ -73,12 +73,12 @@ registerRoute(({url})=>
   })
 )
 
-registerRoute(({url})=>url.origin.includes("bwacharity"), new NetworkFirst({
+registerRoute(({url})=>url.origin.includes("//bwacharity.fly.dev/"), new NetworkFirst({
   cacheName: 'apiData',
   plugins: [
     new ExpirationPlugin({
       maxAgeSeconds: 360,
-      maxEntries: 10
+      maxEntries: 30
     })
   ]
 }))
