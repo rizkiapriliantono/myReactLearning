@@ -1,36 +1,71 @@
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import ServiceApi from './components/service/Api-Service';
 import Header from './components/header';
 import Hero from './components/hero';
 import Browser from './components/browser';
 import Body from './components/body';
 import Clients from './components/clients';
-import SideMenu from './components/side-menu';
+import SideMenu from './components/side-Menu';
 import Footer from './components/footer';
+import Offline from './components/offline';
 
 function App() {
-  const [informationDetail, setInformationDetail] = React.useState([]);
+  const [informationDetail, setInformationDetail] = useState([]);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
-  React.useEffect(() => {
-    const fetchData = async () => {
+  // Fungsi untuk mengecek koneksi online/offline
+  const checkOnline = useCallback(() => {
+    setIsOnline(navigator.onLine);
+  }, []);
+
+  // Fetch data saat komponen pertama kali dirender
+  useEffect(() => {
+    const fetchDataAndSetupListeners = async () => {
       try {
+        // Fetch data
         const informationDetailData = await ServiceApi.getDataInformation();
-        setInformationDetail(Array.isArray(informationDetailData.nodes) ? informationDetailData.nodes : []);
-        console.log('dataget information', informationDetailData.nodes);
-        
+        const data = Array.isArray(informationDetailData.nodes) ? informationDetailData.nodes : [];
+        setInformationDetail(data);
+  
+        // Tambahkan script carousel hanya jika data ada
+        if (data.length > 0) {
+          const scriptCrousel = document.createElement('script');
+          scriptCrousel.src = '/carousel.js';
+          scriptCrousel.async = true;
+          document.body.appendChild(scriptCrousel);
+        }
+  
+        // Tambahkan event listener untuk online/offline
+        checkOnline();
+        window.addEventListener('online', checkOnline);
+        window.addEventListener('offline', checkOnline);
       } catch (error) {
         console.error('Failed to fetch data', error.message);
+        setInformationDetail([]);
       }
+  };
+  
+    fetchDataAndSetupListeners();
+  
+    // Cleanup untuk event listener
+    return () => {
+      window.removeEventListener('online', checkOnline);
+      window.removeEventListener('offline', checkOnline);
     };
-    fetchData();
-  }, []);
+  }, [checkOnline]);
+  
 
   return (
     <>
+      {!isOnline && <Offline />} {/* Gunakan `isOnline` untuk menentukan apakah Offline harus dirender */}
       <Header />
       <Hero />
       <Browser />
-      <Body informationDetailData={informationDetail} />
+      {informationDetail.length === 0 ? (
+        <p>Data tidak tersedia. Harap coba lagi nanti.</p>
+      ) : (
+        <Body informationDetailData={informationDetail} />
+      )}
       <Clients />
       <SideMenu />
       <Footer />
