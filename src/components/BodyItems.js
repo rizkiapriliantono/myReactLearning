@@ -7,7 +7,7 @@ function formatPrice(price) {
 }
 
 
-function bodyItems({item}){
+function BodyItems({item}){
     return(
         <div className="px-4 relative card group">
         <div className="rounded-xl overflow-hidden card-shadow relative" style={{width: '287px', height: '386px'}}>
@@ -29,4 +29,4 @@ function bodyItems({item}){
     )
 }
 
-export default bodyItems;
+export default BodyItems;
