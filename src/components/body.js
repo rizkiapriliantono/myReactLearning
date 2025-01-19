@@ -1,5 +1,5 @@
 import React from 'react';
-// import BodyItems from './bodyItems';
+import BodyItems from './bodyItems.js';
 
 function Body({ informationDetailData }) {
   return (
@@ -14,11 +14,11 @@ function Body({ informationDetailData }) {
       </div>
       <div className="overflow-x-hidden px-4" id="carousel">
         <div className="container mx-auto"></div>
-        {/* <div className="flex -mx-4 flex-row relative">
+        <div className="flex -mx-4 flex-row relative">
           {informationDetailData && Array.isArray(informationDetailData) && informationDetailData.map((item, index) => (
             <BodyItems key={item.id} item={item} />
           ))}
-        </div> */}
+        </div>
       </div>
     </section>
   );
