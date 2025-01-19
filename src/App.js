@@ -5,7 +5,7 @@ import Hero from './components/hero';
 import Browser from './components/browser';
 import Body from './components/body';
 import Clients from './components/clients';
-import SideMenu from './components/side-Menu';
+import SideMenu from './components/sideMenu';
 import Footer from './components/footer';
 import Offline from './components/offline';
 
