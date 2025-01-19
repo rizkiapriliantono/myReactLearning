@@ -1,5 +1,5 @@
 import React from 'react';
-import BodyItems from './BodyItems';
+import BodyItems from './bodyItems';
 
 function Body({ informationDetailData }) {
   return (
