@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import ServiceApi from './components/service/Api-Service';
-import Header from './components/header';
-import Hero from './components/hero';
-import Browser from './components/browser';
-import Body from './components/body';
-import Clients from './components/clients';
-import SideMenu from './components/sideMenu';
-import Footer from './components/footer';
-import Offline from './components/offline';
+import ServiceApi from './components/service/Api-Service.js';
+import Header from './components/header.js';
+import Hero from './components/hero.js';
+import Browser from './components/browser.js';
+import Body from './components/body.js';
+import Clients from './components/clients.js';
+import SideMenu from './components/sideMenu.js';
+import Footer from './components/footer.js';
+import Offline from './components/offline.js';
 
 function App() {
   const [informationDetail, setInformationDetail] = useState([]);
