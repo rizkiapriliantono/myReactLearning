@@ -8,10 +8,16 @@ import Clients from './components/clients.js';
 import SideMenu from './components/sideMenu.js';
 import Footer from './components/footer.js';
 import Offline from './components/offline.js';
+import Splash from './pages/splash.js';
 
 function App() {
   const [informationDetail, setInformationDetail] = useState([]);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [isLoading, setIsLoading] = useState(true);
+
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 1500);
 
   // Fungsi untuk mengecek koneksi online/offline
   const checkOnline = useCallback(() => {
@@ -57,6 +63,8 @@ function App() {
 
   return (
     <>
+    {isLoading === true ?  <Splash /> : (
+      <>
       {!isOnline && <Offline />} {/* Gunakan `isOnline` untuk menentukan apakah Offline harus dirender */}
       <Header />
       <Hero />
@@ -69,6 +77,8 @@ function App() {
       <Clients />
       <SideMenu />
       <Footer />
+      </>
+    )}
     </>
   );
 }
