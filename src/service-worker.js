@@ -111,4 +111,19 @@ self.addEventListener('message', (event) => {
   }
 });
 
+self.addEventListener('push', (event) => {
+  event.waitUntil(
+    self.registration.showNotification(
+      'Lux Space!',
+      {
+        body: event.data.text(),
+        icon: '../public/images/icon/icon-120.png',
+        // data: {
+        //   url: '/',
+        // },
+      }
+    )
+  );
+});
+
 // Any other custom service worker logic can go here.

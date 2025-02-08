@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ServiceApi from './components/service/Api-Service.js';
 import Header from './components/header.js';
 import Hero from './components/hero.js';
@@ -9,6 +10,8 @@ import SideMenu from './components/sideMenu.js';
 import Footer from './components/footer.js';
 import Offline from './components/offline.js';
 import Splash from './pages/splash.js';
+import Profile from './pages/profile.js';
+import Details from './components/details.js';
 
 function App() {
   const [informationDetail, setInformationDetail] = useState([]);
@@ -66,7 +69,7 @@ function App() {
     {isLoading === true ?  <Splash /> : (
       <>
       {!isOnline && <Offline />} {/* Gunakan `isOnline` untuk menentukan apakah Offline harus dirender */}
-      <Header />
+      <Header mode="light"/>
       <Hero />
       <Browser />
       {informationDetail.length === 0 ? (
@@ -83,4 +86,14 @@ function App() {
   );
 }
 
-export default App;
+export default function RoutesComponent() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/details/:id" element={<Details />} />
+      </Routes>
+    </Router>
+  );
+}
